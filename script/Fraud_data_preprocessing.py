@@ -170,7 +170,13 @@ class FraudDataPreprocessing:
             df[['purchase_value', 'transaction_count']] = scaler.fit_transform(df[['purchase_value', 'transaction_count']])
             
             return df
-        
+        def normalize_scale_creditcard_data(self,df):
+            scaler = StandardScaler()
+            
+            df[['Amount','Time']] = scaler.fit_transform(df[['Amount','Time']])
+            
+            return df
+            
         def one_hot_encode(self,df):
             columns_to_encode = ['source', 'browser','sex']
             # Perform one-hot encoding on the specified columns
