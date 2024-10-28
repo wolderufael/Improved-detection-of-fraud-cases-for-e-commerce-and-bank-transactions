@@ -6,6 +6,7 @@ import ipaddress
 from scipy.stats import chi2_contingency
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
+import joblib
 
 class FraudDataPreprocessing:
         def __init__(self):
@@ -168,6 +169,8 @@ class FraudDataPreprocessing:
             scaler = StandardScaler()
             
             df[['purchase_value', 'transaction_count']] = scaler.fit_transform(df[['purchase_value', 'transaction_count']])
+            # Save the fitted scaler for future use
+            joblib.dump(scaler, 'models/scaler.joblib')
             
             return df
         def normalize_scale_creditcard_data(self,df):
@@ -196,7 +199,10 @@ class FraudDataPreprocessing:
             freq_encoding = df['country'].value_counts() / len(df)
             
             # Map the country names to their frequency
-            df['country' + '_encoded'] = df['country'].map(freq_encoding)
+            df['country_encoded'] = df['country'].map(freq_encoding)
+            
+            # Save the frequency encoding mapping
+            joblib.dump(freq_encoding, 'models/country_freq_encoding.joblib')
             
             # Optionally, drop the original 'country' column
             df = df.drop(columns=['country'])

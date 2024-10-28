@@ -1,0 +1,175 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Set a background image for the body */
+body {
+    background-image: url("background.jpg!w700wp"); /* Replace 'your-image-url.jpg' with the path to your image */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keeps the image fixed while scrolling */
+    color: #333;
+}
+
+/* Add a semi-transparent overlay to improve text contrast */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: -1;
+}
+
+/* Center the form container on the page */
+.form-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+/* Style form header */
+.form-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+/* Style individual form elements */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="number"],
+.form-container input[type="submit"],
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the submit button */
+.form-container input[type="submit"] {
+    background-color: #0077b6;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #005f8a;
+}
+
+/* Row for inline fields */
+.inline-fields {
+    display: flex;
+    width: 100%;
+    gap: 15px;
+}
+
+/* Two inline inputs at opposite sides */
+.inline-fields input[type="text"] {
+    width: 100%;
+}
+
+/* Make sure form is responsive */
+@media (max-width: 768px) {
+    .form-container {
+        width: 80%;
+    }
+    .inline-fields {
+        flex-direction: column;
+    }
+}
+
+/* Style for input fields */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+textarea {
+    background-color: transparent; /* Makes the background transparent */
+    border: none; /* Remove default borders */
+    border-bottom: 2px solid #ccc; /* Add a bottom border */
+    outline: none; /* Remove the default outline */
+    color: white; /* Change text color for contrast */
+    padding: 10px; /* Add padding for better spacing */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width */
+    font-size: 16px; /* Font size */
+    transition: border-color 0.3s; /* Smooth transition for border color on focus */
+}
+
+/* Change the bottom border color on focus */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-bottom: 2px solid #fff; 
+}
+
+/* Style labels */
+label {
+    color: white; 
+    display: block; 
+    margin-bottom: 5px; 
+}
+
+.container {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+    margin: 0 auto; 
+}
+
+.left,
+.right {
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside the component */
+    flex: 1; /* Allow components to grow equally */
+    margin: 10px; /* Margin between components */
+}
+
+input[type="datetime-local"] {
+    width: 100%; 
+    max-width: 300px; 
+    height: 40px; 
+    padding: 10px; 
+    margin-bottom: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 16px; 
+    background-color: transparent; 
+    outline: none; 
+    box-shadow: none; 
+    color: white;
+}
+
+#submit{
+    width: 30%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

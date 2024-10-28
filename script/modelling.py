@@ -76,8 +76,7 @@ class Modelling:
                         Dense(1, activation='sigmoid')
                     ])
                     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-                 
-                 
+
                 # Reshape data for deep learning models
                 if model_name in ["CNN", "RNN", "LSTM"]:
                     # X_train, X_test = X_train.reshape((X_train.shape[0], X_train.shape[1], 1)), X_test.reshape((X_test.shape[0], X_test.shape[1], 1))
@@ -153,7 +152,7 @@ class Modelling:
                 roc_plot_path = f"Data/{model_name}_roc_curve.png"
                 plt.savefig(roc_plot_path)
                 mlflow.log_artifact(roc_plot_path)
-      
+
                 # Print the run ID for reference
                 run_id = mlflow.active_run().info.run_id
                 print(f"Run ID: {run_id}")

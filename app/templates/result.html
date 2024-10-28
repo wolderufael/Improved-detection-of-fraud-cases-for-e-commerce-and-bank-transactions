@@ -1,0 +1,18 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='res-style.css') }}"> 
+    <title>Processed Result</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Prediction:</h2>
+        <p>{{ result.prediction}}</p>
+        <p>It is {{ result.meaning}}</p>
+        <a href="/">Back to Form</a>
+    </div>
+
+</body>
+</html>
