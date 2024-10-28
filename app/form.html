@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud Detection Form</title>
+</head>
+<body>
+    <h2>Fraud Detection Form</h2>
+    <form id="fraudForm">
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required><br>
+
+        <label for="signup_time">Signup Time:</label>
+        <input type="datetime-local" id="signup_time" name="signup_time" required><br>
+
+        <label for="purchase_time">Purchase Time:</label>
+        <input type="datetime-local" id="purchase_time" name="purchase_time" required><br>
+
+        <label for="purchase_value">Purchase Value:</label>
+        <input type="number" id="purchase_value" name="purchase_value" required><br>
+
+        <label for="device_id">Device ID:</label>
+        <input type="text" id="device_id" name="device_id" required><br>
+
+        <label for="source">Source:</label>
+        <select id="source" name="source" required>
+            <option value="M">Ads</option>
+            <option value="M">Direct</option>
+            <option value="F">SEO</option>
+        </select><br>
+
+        <label for="browser">Browser:</label>
+        <select id="browser" name="browser" required>
+            <option value="M">Chrome</option>
+            <option value="M">Firefox</option>
+            <option value="M">IE</option>
+            <option value="M">Opera</option>
+            <option value="M">Safari</option>
+        </select><br
+
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex" required>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required><br>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            const form = document.getElementById('fraudForm');
+            const formData = new FormData(form);
+            const jsonData = {};
+
+            formData.forEach((value, key) => (jsonData[key] = value));
+
+            fetch('http://localhost:5000/detect_fraud', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => response.json())
+            .then(data => alert('Prediction: ' + JSON.stringify(data)))
+            .catch(error => alert('Error: ' + error));
+        }
+    </script>
+</body>
+</html>

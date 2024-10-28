@@ -1,6 +1,9 @@
 import pickle
 from sklearn.model_selection import train_test_split
 import shap
+import lime
+from lime.lime_tabular import LimeTabularExplainer
+import numpy as np
 
 class Explainaibility:
     def load_model(self,model_path):
@@ -42,3 +45,23 @@ class Explainaibility:
         
     def dependece_plot(self,shap_values,feature,X_test):
         shap.dependence_plot(feature, shap_values.values, X_test)
+        
+    def lime_feature_importance_plot(self,model,X_train,X_test):
+        explainer = LimeTabularExplainer(
+            training_data=np.array(X_train),
+            feature_names=X_train.columns,
+            class_names=[0, 1],  
+            mode='classification'
+        )
+
+        # Select an instance for explanation
+        instance_to_explain = X_test.iloc[0]  
+
+        # Explain the prediction for this instance
+        explanation = explainer.explain_instance(
+            data_row=instance_to_explain,
+            predict_fn=model.predict_proba  
+        )
+
+        # Plot the explanation (Feature Importance Plot)
+        explanation.show_in_notebook(show_table=True)
