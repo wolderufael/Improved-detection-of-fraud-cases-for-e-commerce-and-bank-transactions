@@ -13,6 +13,11 @@ import seaborn as sns
 import os
 import pickle
 from datetime import datetime
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, LSTM
+from tensorflow.keras.layers import SimpleRNN
+from tensorflow.keras.utils import to_categorical
 
 
 
@@ -50,12 +55,51 @@ class Modelling:
                     model = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
                 elif model_name=="MLPClassifier":
                     model = MLPClassifier(hidden_layer_sizes=(100,), max_iter=300, alpha=0.001, solver='adam', random_state=42)
-                    
-                model.fit(X_train, y_train)
+                elif model_name == "CNN":
+                    model = Sequential([
+                        Conv1D(32, 3, activation='relu', input_shape=(X_train.shape[1], 1)),
+                        MaxPooling1D(2),
+                        Flatten(),
+                        Dense(100, activation='relu'),
+                        Dense(1, activation='sigmoid')
+                    ])
+                    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+                elif model_name == "RNN":
+                    model = Sequential([
+                        SimpleRNN(50, activation='relu', input_shape=(X_train.shape[1], 1)),
+                        Dense(1, activation='sigmoid')
+                    ])
+                    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+                elif model_name == "LSTM":
+                    model = Sequential([
+                        LSTM(50, activation='relu', input_shape=(X_train.shape[1], 1)),
+                        Dense(1, activation='sigmoid')
+                    ])
+                    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+                 
+                 
+                # Reshape data for deep learning models
+                if model_name in ["CNN", "RNN", "LSTM"]:
+                    # X_train, X_test = X_train.reshape((X_train.shape[0], X_train.shape[1], 1)), X_test.reshape((X_test.shape[0], X_test.shape[1], 1))
+                    X_train = np.array(X_train).reshape((-1, X_train.shape[1], 1))
+                    X_test = np.array(X_test).reshape((-1, X_test.shape[1], 1))
+                
+                # model.fit(X_train, y_train)
 
-                # Predict on the test set
-                y_pred = model.predict(X_test)
-                y_pred_proba = model.predict_proba(X_test)
+                # # Predict on the test set
+                # y_pred = model.predict(X_test)
+                # y_pred_proba = model.predict_proba(X_test)
+                
+                # Train the model
+                if model_name in ["CNN", "RNN", "LSTM"]:
+                    history = model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2, verbose=1)
+                    y_pred_proba = model.predict(X_test)
+                    y_pred = (y_pred_proba > 0.5).astype(int)
+                else:
+                    model.fit(X_train, y_train)
+                    y_pred = model.predict(X_test)
+                    y_pred_proba = model.predict_proba(X_test) if hasattr(model, "predict_proba") else None
+                
                 
                 # Evaluate the model
                 accuracy = accuracy_score(y_test, y_pred)
@@ -68,8 +112,8 @@ class Modelling:
                 mlflow.sklearn.log_model(model, f"{model_name}_model")
                 
                 # Log parameters
-                mlflow.log_param("max_iter", 100)
-                mlflow.log_param("solver", "lbfgs")
+                # mlflow.log_param("max_iter", 100)
+                # mlflow.log_param("solver", "lbfgs")
                 
                 # Confusion Matrix
                 cm = confusion_matrix(y_test, y_pred)
