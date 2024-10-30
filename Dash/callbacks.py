@@ -74,7 +74,12 @@ def submit_form(n_clicks, user_id, signup_time, source, purchase_value, age, dev
         response = requests.post("https://improved-detection-of-fraud-cases-for-e.onrender.com/submit", data=form_data)
         if response.status_code == 200:
             result = response.json()
-            return f"Prediction: {result['meaning']} (Code: {result['prediction']})"
+            # return f"Prediction: {result['meaning']} (Code: {result['prediction']})"
+            return html.Div([
+                html.H4("Prediction Result:"),
+                html.P(f"{result.get('prediction', 'N/A')}"),
+                html.P(f" {result.get('meaning', 'N/A')}")
+            ],className="result")
         else:
             return "Error: Could not get a prediction"
     except requests.exceptions.RequestException as e:

@@ -145,3 +145,21 @@ p{
     margin-top: 20px;
 }
 
+.result {
+    background-color: rgba(153, 194, 235, 0.2); 
+    margin-top: 15px;
+}
+.result h4{
+    text-align: center;
+    color: darkgray;
+
+}
+#source,
+#browser,
+#sex{
+    display: block;
+    color: #000;
+    background-color: aqua;
+    width: 100%;
+    margin-bottom: 10px;
+}
