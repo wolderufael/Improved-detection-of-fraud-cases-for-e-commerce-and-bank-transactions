@@ -123,9 +123,25 @@ p{
 #submit:hover {
     background-color: #0056b3; /* Darker blue on hover */
 }
-.tab{
+/* .tab{
     background-color: transparent;
     color: #000 !important;
     text-decoration: double;
+} */
+
+/* Set the background color and text color for active tabs */
+.tab {
+    background-color: #f8f9fa; /* Default background color for all tabs */
+    color: #495057; /* Default text color for all tabs */
+}
+
+.tab.active {
+    background-color: #007bff; /* Background color for active tab */
+    color: #ffffff; /* Text color for active tab */
+}
+
+/* Optional: Style for tab content */
+#dashboard-content {
+    margin-top: 20px;
 }
 

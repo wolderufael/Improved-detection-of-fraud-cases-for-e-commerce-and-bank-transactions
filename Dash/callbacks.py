@@ -11,8 +11,6 @@ from scipy.stats import chi2_contingency
 # from app_instance import app  # Import the app instance
 from app import app
 
-# Load and preprocess data
-df = pd.read_csv('../Data/merged_data.csv')
 
 from pages.home import layout_home
 from pages.form import layout_form

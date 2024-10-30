@@ -10,7 +10,7 @@ def layout_dashboard():
             dbc.Col(html.H2("Dashboard"), className="mb-2")
         ]),
     dbc.Row([
-        dcc.Tabs(id="dashboard-tabs", value="home",className="tab", children=[
+        dcc.Tabs(id="dashboard-tabs", value="summary",className="tab", children=[
             dcc.Tab(label="Summary Statistics", value="summary" ,className="tab"),
             dcc.Tab(label="Geographical Distibutiion", value="geo",className="tab"),
             dcc.Tab(label="Frequency Distribution", value="frequency",className="tab"),
