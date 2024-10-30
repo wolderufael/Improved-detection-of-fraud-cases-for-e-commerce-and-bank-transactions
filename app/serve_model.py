@@ -51,24 +51,24 @@ else:
 with open(destination, 'rb') as f:
     rf_model = pickle.load(f)
 
-from script.Fraud_data_preprocessing import FraudDataPreprocessing
-preprocessecor=FraudDataPreprocessing()
+# from script.Fraud_data_preprocessing import FraudDataPreprocessing
+# preprocessecor=FraudDataPreprocessing()
 
 def preprocess_input(data):
-    # Convert JSON data to DataFrame
-    df = pd.DataFrame([data])
-    #process the data
-    feat_engineered=preprocessecor.feature_engineering(df)
-    scaler = joblib.load('params/scaler.joblib') # use the scaler saved for training
-    feat_engineered[['purchase_value', 'transaction_count']] = scaler.transform(feat_engineered[['purchase_value', 'transaction_count']])
-    # Select columns of interest
-    # input_data = pd.DataFrame([data])
-    # input_data['purchase_time'] = pd.to_datetime(input_data['purchase_time'])
-    # input_data['signup_time'] = pd.to_datetime(input_data['signup_time'])
-    # input_data['hour_of_day'] = input_data['purchase_time'].dt.hour
-    # input_data['day_of_week'] = input_data['purchase_time'].dt.dayofweek
-    # input_data['transaction_count'] =0
-    selected_features = feat_engineered[['purchase_value', 'age', 'transaction_count', 'hour_of_day', 'day_of_week',
+    # # Convert JSON data to DataFrame
+    # df = pd.DataFrame([data])
+    # #process the data
+    # feat_engineered=preprocessecor.feature_engineering(df)
+    # scaler = joblib.load('params/scaler.joblib') # use the scaler saved for training
+    # feat_engineered[['purchase_value', 'transaction_count']] = scaler.transform(feat_engineered[['purchase_value', 'transaction_count']])
+    # # Select columns of interest
+    input_data = pd.DataFrame([data])
+    input_data['purchase_time'] = pd.to_datetime(input_data['purchase_time'])
+    input_data['signup_time'] = pd.to_datetime(input_data['signup_time'])
+    input_data['hour_of_day'] = input_data['purchase_time'].dt.hour
+    input_data['day_of_week'] = input_data['purchase_time'].dt.dayofweek
+    input_data['transaction_count'] =1
+    selected_features = input_data[['purchase_value', 'age', 'transaction_count', 'hour_of_day', 'day_of_week',
                                     'source', 'browser', 'sex', 'country']]    # Manually specify all possible categories for one-hot encoding
     all_possible_values = {
         'source': ['Ads', 'Direct', 'SEO'],
@@ -86,7 +86,7 @@ def preprocess_input(data):
 
     # Get feature names from the encoder and create a DataFrame
     one_hot_columns = one_hot_encoder.get_feature_names_out(['source', 'browser', 'sex'])
-    one_hot_df = pd.DataFrame(one_hot_encoded, columns=one_hot_columns, index=feat_engineered.index)
+    one_hot_df = pd.DataFrame(one_hot_encoded, columns=one_hot_columns, index=input_data.index)
     
     # Concatenate one-hot encoded columns with the selected features
     encoded = pd.concat([selected_features.drop(columns=['source', 'browser', 'sex']), one_hot_df], axis=1)
