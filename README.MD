@@ -19,13 +19,12 @@ This project aims to enhance the detection of fraud cases in e-commerce and bank
 ## Project Structure
 
 ```plaintext
-Rossmann_Store_Sales_Prediction/
+Improved Detection of Fraud Cases for E-commerce and Bank Transactions/
 │
 ├── api/ 
 │   ├── serve_model.py
 │ 
-├── Dash/                  # Contains the dataset (training and testing data)
-│   ├── assets/
+├── Dash/                 
 │   ├── pages/
 │            ├── dashboard.py
 │            ├── form.py

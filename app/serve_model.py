@@ -22,7 +22,15 @@ app = Flask(__name__)
 CORS(app)
 
 # df = pd.read_csv('data/merged_data.csv')
+data_id='1h7pQIkS9tlcLXz0xpRSZxOdHsEKBmKQZ'
+destination_file='../merged_data.csv'
+if not os.path.exists(destination_file):
+    # Download the file if it doesn't exist
+    gdown.download(f'https://drive.google.com/uc?id={data_id}', destination_file, quiet=False)
+else:
+    print(f"{destination_file} already exists. Skipping download.")
 
+df=pd.read_csv('data/merged_data.csv')
 # # Load the pre-trained randomforrest model using pickle
 # with open('../models/fraud_data/RandomForestClassifier-30-10-2024-10-10-39-00.pkl', 'rb') as f:
 #     rf_model = pickle.load(f)
@@ -54,6 +62,12 @@ def preprocess_input(data):
     scaler = joblib.load('params/scaler.joblib') # use the scaler saved for training
     feat_engineered[['purchase_value', 'transaction_count']] = scaler.transform(feat_engineered[['purchase_value', 'transaction_count']])
     # Select columns of interest
+    # input_data = pd.DataFrame([data])
+    # input_data['purchase_time'] = pd.to_datetime(input_data['purchase_time'])
+    # input_data['signup_time'] = pd.to_datetime(input_data['signup_time'])
+    # input_data['hour_of_day'] = input_data['purchase_time'].dt.hour
+    # input_data['day_of_week'] = input_data['purchase_time'].dt.dayofweek
+    # input_data['transaction_count'] =0
     selected_features = feat_engineered[['purchase_value', 'age', 'transaction_count', 'hour_of_day', 'day_of_week',
                                     'source', 'browser', 'sex', 'country']]    # Manually specify all possible categories for one-hot encoding
     all_possible_values = {
