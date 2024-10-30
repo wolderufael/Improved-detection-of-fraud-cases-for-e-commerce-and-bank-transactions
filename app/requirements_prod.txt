@@ -1,0 +1,11 @@
+flask 
+flask_cors 
+pandas 
+pickle
+datetime
+numpy 
+sys
+os
+scikit-learn 
+joblib
+gdown

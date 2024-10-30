@@ -23,21 +23,21 @@ CORS(app)
 
 df = pd.read_csv('../Data/merged_data.csv')
 
-# Load the pre-trained randomforrest model using pickle
-with open('../models/fraud_data/RandomForestClassifier-30-10-2024-10-10-39-00.pkl', 'rb') as f:
-    rf_model = pickle.load(f)
-    
-# # Google Drive file ID
-# file_id = '1tTDVR3k11cbygLeZGNf_fBMy6dCWu_zu'
-# # Output file path
-# destination = '../model.pkl'
-
-# # Download the file using gdown
-# gdown.download(f'https://drive.google.com/uc?id={file_id}', destination, quiet=False)
-
-# # Load the model
-# with open(destination, 'rb') as f:
+# # Load the pre-trained randomforrest model using pickle
+# with open('../models/fraud_data/RandomForestClassifier-30-10-2024-10-10-39-00.pkl', 'rb') as f:
 #     rf_model = pickle.load(f)
+    
+# Google Drive file ID
+file_id = '1tTDVR3k11cbygLeZGNf_fBMy6dCWu_zu'
+# Output file path
+destination = '../model.pkl'
+
+# Download the file using gdown
+gdown.download(f'https://drive.google.com/uc?id={file_id}', destination, quiet=False)
+
+# Load the model
+with open(destination, 'rb') as f:
+    rf_model = pickle.load(f)
 
 from script.Fraud_data_preprocessing import FraudDataPreprocessing
 preprocessecor=FraudDataPreprocessing()
