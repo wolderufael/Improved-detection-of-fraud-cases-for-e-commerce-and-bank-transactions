@@ -21,7 +21,7 @@ sys.path.append(os.path.abspath('../models'))
 app = Flask(__name__)
 CORS(app)
 
-df = pd.read_csv('data/merged_data.csv')
+# df = pd.read_csv('data/merged_data.csv')
 
 # # Load the pre-trained randomforrest model using pickle
 # with open('../models/fraud_data/RandomForestClassifier-30-10-2024-10-10-39-00.pkl', 'rb') as f:
