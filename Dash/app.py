@@ -22,5 +22,5 @@ app.layout = create_layout(app)
 # Run the app on the specified port and host
 if __name__ == '__main__':
     # Use Render's dynamically assigned port
-    port = int(os.getenv("PORT", 8000))  # Fallback to 8000 if $PORT is not set
+    port = int(os.getenv("PORT", 8050))  # Fallback to 8000 if $PORT is not set
     app.run_server(host="0.0.0.0", port=port, debug=True)
