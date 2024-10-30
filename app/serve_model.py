@@ -20,6 +20,8 @@ sys.path.append(os.path.abspath('../models'))
 app = Flask(__name__)
 CORS(app)
 
+df = pd.read_csv('../Data/merged_data.csv')
+
 # Load the pre-trained randomforrest model using pickle
 with open('../models/fraud_data/RandomForestClassifier-28-10-2024-09-00-19-00.pkl', 'rb') as f:
     rf_model = pickle.load(f)
@@ -72,45 +74,33 @@ def preprocess_input(data):
 def form():
     return render_template('form.html')
 
+# Endpoint for summary statistics
+@app.route('/api/summary', methods=['GET'])
+def get_summary():
+    total_transactions = df.shape[0]
+    total_fraud_cases = df[df['class'] == 1].shape[0]
+    fraud_percentage = (total_fraud_cases / total_transactions) * 100
+
+    summary = {
+        "total_transactions": total_transactions,
+        "total_fraud_cases": total_fraud_cases,
+        "fraud_percentage": fraud_percentage
+    }
+    return jsonify(summary)
+
 @app.route('/submit', methods=['POST'])
 def submit():
-    form_data = {
-        "age": int(request.form['age']),
-        "browser": request.form['browser'],
-        "country": request.form['country'],
-        "device_id": request.form['device_id'],
-        "purchase_time": request.form['purchase_time'],
-        "purchase_value": float(request.form['purchase_value']),
-        "sex": request.form['sex'],
-        "signup_time": request.form['signup_time'],
-        "source": request.form['source'],
-        "user_id": request.form['user_id']
-    }
-
-    processed_data = preprocess_input(form_data)
+    data = request.form
+    processed_data = preprocess_input(data)
 
     # Make prediction with the loaded model
     prediction = rf_model.predict(processed_data)
     result_data={'prediction':int(prediction[0]),
                  'meaning': 'a Fraud' if int(prediction[0])==1 else 'Not a Fraud' }
 
-    return render_template('result.html', result=result_data)
+    # return render_template('result.html', result=result_data)
+    return jsonify(result_data) 
 
- 
-# # Define logistic regression prediction endpoint for CSV file input
-# @app.route('/detect_fraud', methods=['POST'])
-# def predict():
-#     try:
-#         data = request.get_json()
-#         processed_data = preprocess_input_rf(data)
-        
-#         # Make prediction with the loaded model
-#         prediction = rf_model.predict(processed_data)
-
-#         return jsonify({'prediction': int(prediction[0])})
-
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
 
 
 # Define a health check route

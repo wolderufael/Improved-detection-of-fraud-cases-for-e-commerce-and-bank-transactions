@@ -1,0 +1,125 @@
+
+body{
+    background-color: aquamarine;
+    color: #fff;
+    background-image: url("background.jpg!w700wp");
+}
+.container{
+    /* background-color: rgb(28, 31, 30); */
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    box-sizing: border-box;
+    background-image: url("background.jpg!w700wp");
+    background-repeat: no-repeat;            
+    background-size: cover;                  
+    background-position: center;
+}
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* Center the header */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+h6{
+    text-align: left;
+    margin-top: 20px;
+}
+h5{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.mb-2{
+    margin-bottom: 0.5rem;
+    /* margin-top: 0.5rem; */
+    text-align: center;
+    background-color: darkslateblue;
+}
+#feature-dropdown {
+    display: block;
+    color: #000;
+    background-color: aqua;
+    width: 100%;
+}
+#feature-dropdown-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Dark gray text */
+    margin-bottom: 8px;
+    display: block;
+}
+#cramers-v-output{
+    margin-top: 20 px;
+    padding: 2 px;
+    background-color: bisque;
+    text-decoration: double;
+    text-size-adjust: 40px;
+    color: #000;
+}
+
+
+/* for form */
+/* Make the form container centered and one-third of the screen width */
+/* Make the form container centered and one-third of the screen width */
+.form-container {
+    width: 75%; /* One-third of the screen width */
+    margin: 0 auto; /* Center the form */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: translucent background */
+    border-radius: 8px;
+    color: #ffffff !important; /* White text color for labels and headers */
+}
+
+/* Style for the form header */
+.form-container h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+}
+/* Apply to dropdown component container */
+.dropdown-custom .Select-control {
+    background-color: black !important;
+    color: white !important;
+}
+
+/* Dropdown options background and text color */
+.dropdown-custom .Select-menu {
+    background-color: black !important;
+    color: white !important;
+}
+
+/* Option styling when hovered or focused */
+.dropdown-custom .Select-option--is-focused, 
+.dropdown-custom .Select-option--is-selected {
+    background-color: #333 !important; /* Darker gray for hover/selection */
+    color: white !important;
+}
+
+/* Submit button styling */
+#submit {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    background-color: #007bff; /* Primary blue color */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px; /* Same height as input fields */
+}
+
+#submit:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+.tab{
+    background-color: transparent;
+    color: #000 !important;
+    text-decoration: double;
+}
+

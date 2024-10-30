@@ -1,0 +1,8 @@
+datatime
+flask
+flask_cors
+joblib
+numpy
+pandas
+pickle
+skit-learn
