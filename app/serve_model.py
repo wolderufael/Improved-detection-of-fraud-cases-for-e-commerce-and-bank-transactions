@@ -23,21 +23,21 @@ CORS(app)
 
 df = pd.read_csv('../Data/merged_data.csv')
 
-# # Load the pre-trained randomforrest model using pickle
-# with open('../models/fraud_data/RandomForestClassifier-28-10-2024-09-00-19-00.pkl', 'rb') as f:
-#     rf_model = pickle.load(f)
-    
-# Google Drive file ID
-file_id = '1tTDVR3k11cbygLeZGNf_fBMy6dCWu_zu'
-# Output file path
-destination = '../model.pkl'
-
-# Download the file using gdown
-gdown.download(f'https://drive.google.com/uc?id={file_id}', destination, quiet=False)
-
-# Load the model
-with open(destination, 'rb') as f:
+# Load the pre-trained randomforrest model using pickle
+with open('../models/fraud_data/RandomForestClassifier-30-10-2024-10-10-39-00.pkl', 'rb') as f:
     rf_model = pickle.load(f)
+    
+# # Google Drive file ID
+# file_id = '1tTDVR3k11cbygLeZGNf_fBMy6dCWu_zu'
+# # Output file path
+# destination = '../model.pkl'
+
+# # Download the file using gdown
+# gdown.download(f'https://drive.google.com/uc?id={file_id}', destination, quiet=False)
+
+# # Load the model
+# with open(destination, 'rb') as f:
+#     rf_model = pickle.load(f)
 
 from script.Fraud_data_preprocessing import FraudDataPreprocessing
 preprocessecor=FraudDataPreprocessing()
@@ -47,7 +47,7 @@ def preprocess_input(data):
     df = pd.DataFrame([data])
     #process the data
     feat_engineered=preprocessecor.feature_engineering(df)
-    scaler = joblib.load('../models/scaler.joblib') # use the scaler saved for training
+    scaler = joblib.load('params/scaler.joblib') # use the scaler saved for training
     feat_engineered[['purchase_value', 'transaction_count']] = scaler.transform(feat_engineered[['purchase_value', 'transaction_count']])
     # Select columns of interest
     selected_features = feat_engineered[['purchase_value', 'age', 'transaction_count', 'hour_of_day', 'day_of_week',
@@ -74,7 +74,7 @@ def preprocess_input(data):
     encoded = pd.concat([selected_features.drop(columns=['source', 'browser', 'sex']), one_hot_df], axis=1)
     
     # Load the saved frequency encoding mapping
-    freq_encoding = joblib.load('../models/country_freq_encoding.joblib')
+    freq_encoding = joblib.load('params/country_freq_encoding.joblib')
     # Map the frequency encoding to the 'country' column in the new data
     encoded['country_encoded'] = encoded['country'].map(freq_encoding).fillna(0)
     # Drop the original 'country' column if needed
