@@ -108,7 +108,7 @@ p{
 }
 
 /* Submit button styling */
-#submit {
+#submit-button {
     width: 100%;
     padding: 10px;
     font-size: 1em;
@@ -120,7 +120,7 @@ p{
     height: 40px; /* Same height as input fields */
 }
 
-#submit:hover {
+#submit:button {
     background-color: #0056b3; /* Darker blue on hover */
 }
 /* .tab{

@@ -6,7 +6,7 @@ from dash import html, dcc, Input, Output
 import dash_bootstrap_components as dbc
 import requests
 import plotly.express as px
-from scipy.stats import chi2_contingency
+
 
 # from app_instance import app  # Import the app instance
 from app import app
@@ -71,7 +71,7 @@ def submit_form(n_clicks, user_id, signup_time, source, purchase_value, age, dev
 
     try:
         # Send a POST request to Flask
-        response = requests.post("http://127.0.0.1:5000/submit", data=form_data)
+        response = requests.post("https://improved-detection-of-fraud-cases-for-e.onrender.com/submit", data=form_data)
         if response.status_code == 200:
             result = response.json()
             return f"Prediction: {result['meaning']} (Code: {result['prediction']})"
@@ -89,7 +89,7 @@ def submit_form(n_clicks, user_id, signup_time, source, purchase_value, age, dev
 )
 def update_summary(_):
     # Request summary data from Flask API
-    response = requests.get("http://127.0.0.1:5000/api/summary")
+    response = requests.get("https://improved-detection-of-fraud-cases-for-e.onrender.com/api/summary")
     summary = response.json()
 
     return (
@@ -104,7 +104,7 @@ def update_summary(_):
 )
 def update_fraud_trend(_):
     # Fetch fraud trend data from Flask API
-    response = requests.get("http://127.0.0.1:5000/api/fraud_trend")
+    response = requests.get("https://improved-detection-of-fraud-cases-for-e.onrender.com/api/fraud_trend")
     fraud_trend = pd.DataFrame(response.json())
     
     # Line chart
@@ -133,7 +133,7 @@ def plot_freq_dist(selected_feature):
         return {}
 
     # Request frequency distribution data from Flask API
-    response = requests.get(f"http://127.0.0.1:5000/api/frequency_distribution/{selected_feature}")
+    response = requests.get(f"https://improved-detection-of-fraud-cases-for-e.onrender.com/api/frequency_distribution/{selected_feature}")
     value_counts = response.json()
 
     # Convert to DataFrame for plotting
@@ -160,7 +160,7 @@ def plot_freq_dist(selected_feature):
 )
 def plot_fraud_distribution(_):
     # Request fraud distribution data from Flask API
-    response = requests.get("http://127.0.0.1:5000/api/fraud_distribution")
+    response = requests.get("https://improved-detection-of-fraud-cases-for-e.onrender.com/api/fraud_distribution")
     fraud_counts = pd.DataFrame(response.json())
 
     # Create a choropleth map
