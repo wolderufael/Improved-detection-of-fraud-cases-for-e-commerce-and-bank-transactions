@@ -32,8 +32,12 @@ file_id = '1tTDVR3k11cbygLeZGNf_fBMy6dCWu_zu'
 # Output file path
 destination = '../model.pkl'
 
-# Download the file using gdown
-gdown.download(f'https://drive.google.com/uc?id={file_id}', destination, quiet=False)
+# Check if the destination file exists
+if not os.path.exists(destination):
+    # Download the file if it doesn't exist
+    gdown.download(f'https://drive.google.com/uc?id={file_id}', destination, quiet=False)
+else:
+    print(f"{destination} already exists. Skipping download.")
 
 # Load the model
 with open(destination, 'rb') as f:
