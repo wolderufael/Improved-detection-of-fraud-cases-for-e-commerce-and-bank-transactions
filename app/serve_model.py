@@ -8,6 +8,7 @@ import sys
 import os
 from sklearn.preprocessing import OneHotEncoder
 import joblib
+import gdown
 
 # Add the project directory to sys.path
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -22,10 +23,21 @@ CORS(app)
 
 df = pd.read_csv('../Data/merged_data.csv')
 
-# Load the pre-trained randomforrest model using pickle
-with open('../models/fraud_data/RandomForestClassifier-28-10-2024-09-00-19-00.pkl', 'rb') as f:
-    rf_model = pickle.load(f)
+# # Load the pre-trained randomforrest model using pickle
+# with open('../models/fraud_data/RandomForestClassifier-28-10-2024-09-00-19-00.pkl', 'rb') as f:
+#     rf_model = pickle.load(f)
     
+# Google Drive file ID
+file_id = '1tTDVR3k11cbygLeZGNf_fBMy6dCWu_zu'
+# Output file path
+destination = '../model.pkl'
+
+# Download the file using gdown
+gdown.download(f'https://drive.google.com/uc?id={file_id}', destination, quiet=False)
+
+# Load the model
+with open(destination, 'rb') as f:
+    rf_model = pickle.load(f)
 
 from script.Fraud_data_preprocessing import FraudDataPreprocessing
 preprocessecor=FraudDataPreprocessing()
