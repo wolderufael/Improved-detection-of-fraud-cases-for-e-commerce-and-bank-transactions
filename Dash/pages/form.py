@@ -84,7 +84,7 @@ def layout_form():
     ]),
 
     dbc.Row([
-        dbc.Col(dbc.Button("Submit", id="submit", color="primary", className="mt-4"), width={"size": 6, "offset": 3})
+        dbc.Col(dbc.Button("Submit", id="submit-button", color="primary", className="mt-4"), width={"size": 6, "offset": 3})
     ])
 ], fluid=True, className="form-container")
 

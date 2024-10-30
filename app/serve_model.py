@@ -88,6 +88,35 @@ def get_summary():
     }
     return jsonify(summary)
 
+# Endpoint for fraud cases over time
+@app.route('/api/fraud_trend', methods=['GET'])
+def get_fraud_trend():
+    # Assuming `signup_time` is in datetime format
+    df['signup_time'] = pd.to_datetime(df['signup_time'])
+    fraud_trend = df[df['class'] == 1].resample('M', on='signup_time').size().reset_index(name='fraud_count')
+    
+    trend_data = fraud_trend.to_dict(orient='records')
+    return jsonify(trend_data)
+
+# Endpoint for frequency distribution of selected feature
+@app.route('/api/frequency_distribution/<string:feature>', methods=['GET'])
+def get_frequency_distribution(feature):
+    value_counts = df[feature].value_counts().reset_index()
+    value_counts.columns = [feature, 'count']
+    
+    freq_data = value_counts.to_dict(orient='records')
+    return jsonify(freq_data)
+
+# Endpoint for fraud distribution by country
+@app.route('/api/fraud_distribution', methods=['GET'])
+def get_fraud_distribution():
+    fraud_counts = df[df['class'] == 1]['country'].value_counts().reset_index()
+    fraud_counts.columns = ['country', 'fraud_count']
+
+    # Return as JSON
+    fraud_data = fraud_counts.to_dict(orient='records')
+    return jsonify(fraud_data)
+
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.form
@@ -100,8 +129,6 @@ def submit():
 
     # return render_template('result.html', result=result_data)
     return jsonify(result_data) 
-
-
 
 # Define a health check route
 @app.route('/health', methods=['GET'])
