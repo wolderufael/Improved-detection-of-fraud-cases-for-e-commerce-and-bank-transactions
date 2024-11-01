@@ -51,17 +51,8 @@ else:
 with open(destination, 'rb') as f:
     rf_model = pickle.load(f)
 
-# from script.Fraud_data_preprocessing import FraudDataPreprocessing
-# preprocessecor=FraudDataPreprocessing()
 
 def preprocess_input(data):
-    # # Convert JSON data to DataFrame
-    # df = pd.DataFrame([data])
-    # #process the data
-    # feat_engineered=preprocessecor.feature_engineering(df)
-    # scaler = joblib.load('params/scaler.joblib') # use the scaler saved for training
-    # feat_engineered[['purchase_value', 'transaction_count']] = scaler.transform(feat_engineered[['purchase_value', 'transaction_count']])
-    # # Select columns of interest
     input_data = pd.DataFrame([data])
     input_data['purchase_time'] = pd.to_datetime(input_data['purchase_time'])
     input_data['signup_time'] = pd.to_datetime(input_data['signup_time'])
@@ -69,7 +60,7 @@ def preprocess_input(data):
     input_data['day_of_week'] = input_data['purchase_time'].dt.dayofweek
     input_data['transaction_count'] =1
     selected_features = input_data[['purchase_value', 'age', 'transaction_count', 'hour_of_day', 'day_of_week',
-                                    'source', 'browser', 'sex', 'country']]    # Manually specify all possible categories for one-hot encoding
+                                    'source', 'browser', 'sex', 'country']]    
     all_possible_values = {
         'source': ['Ads', 'Direct', 'SEO'],
         'browser': ['Chrome', 'FireFox', 'IE', 'Opera', 'Safari'],
