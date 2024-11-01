@@ -88,8 +88,8 @@ in this project the following models are used:
 
 ## Results
 ### Dash board
-![Dashboard](Data/dashboard/dashboard_1.png)
-![Faud Distribution](Data/dashboard/dashboard_2.png)
+![Dashboard](Dash/dashboard/dashboard_1.png)
+![Faud Distribution](Dash/dashboard/dashboard_2.png)
 
 
 
